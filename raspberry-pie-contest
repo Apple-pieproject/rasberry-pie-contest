@@ -1,0 +1,27 @@
+#!/usr/bin/python
+from gpiozero import LightSensor
+from gpiozero import LED
+from gpiozero import Buzzer
+ 
+ 
+varSensor = LightSensor(18)
+varLed1 = LED(17)
+varLed2 = LED(27)
+Buzzer = Buzzer(22)
+ 
+ 
+while True:
+    varSensor.wait_for_light()
+    Buzzer.off()
+    print("licht is aan")
+    print(varSensor.value)
+    varLed1.off()
+    varLed2.on()
+    varSensor.wait_for_dark()
+ 
+    if (varSensor.value < 0.50):
+        Buzzer.beep()
+        print("het is donker")
+        print(varSensor.value)
+        varLed1.on()                                 
+        varLed2.off()
